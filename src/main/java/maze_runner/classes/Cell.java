@@ -6,6 +6,8 @@ public class Cell {
 
     // Walls on the North, South, East and West sides
     public boolean N, S, E, W;
+    
+    public int x, y;
 
     // without identifier
     public Cell(boolean n, boolean s, boolean e, boolean w) {
@@ -25,6 +27,30 @@ public class Cell {
         this.W = w;
     }
 
+    public void openWall(String wall) {
+        System.out.println("Cell #" + getID() + ": " + wall);
+        switch (wall) {
+            case "N":
+                this.N = false;
+                break;
+        
+            case "S":
+                this.S = false;
+                break;
+
+            case "E":
+                this.E = false;
+                break;
+
+            case "W":
+                this.W = false;
+                break;
+
+            default:
+                break;
+        }
+    }
+
     public int getID() {
         return id;
     }
@@ -34,10 +60,10 @@ public class Cell {
 
         // North wall
         if(N) {
-            cellStr += "###";
+            cellStr += "###\n";
         }
         else {
-            cellStr += "# #";
+            cellStr += "# #\n";
         }
 
         // West wall
@@ -54,18 +80,18 @@ public class Cell {
 
         // East wall
         if(E) {
-            cellStr += "#";
+            cellStr += "#\n";
         }
         else {
-            cellStr += " "; 
+            cellStr += " \n"; 
         }
 
         // South wall
         if (S) {
-            cellStr += "###";
+            cellStr += "###\n";
         }
         else {
-            cellStr += "# #";
+            cellStr += "# #\n";
         }
 
         return cellStr;
