@@ -16,21 +16,21 @@ public class Maze {
 
         int id = 0;
 
-        // horizontal
-        for (int x = 0; x < width; x++) {
-            List<Cell> row = new ArrayList<>();
+        // vertical
+        for (int y = 0; y < height; y++) {
+            List<Cell> col = new ArrayList<>();
 
-            // vertical
-            for (int y = 0; y < height; y++) {
+            // horizontal
+            for (int x = 0; x < width; x++) {
                 // creates a new cell with all walls closed
                 Cell newCell = new Cell(id, true, true, true, true);
                 newCell.x = x;
                 newCell.y = y;
-                row.add(newCell);
+                col.add(newCell);
                 id++;
             }
             // add the column to the row
-            cells.add(row);
+            cells.add(col);
         }
     }
 
@@ -50,7 +50,7 @@ public class Maze {
     public Cell getCell(int x, int y) {
         return cells.get(y).get(x);
     }
-
+    
     public int size() {
         return width * height;
     }
