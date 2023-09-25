@@ -26,6 +26,7 @@ public class Maze {
                 Cell newCell = new Cell(id, true, true, true, true);
                 newCell.x = x;
                 newCell.y = y;
+                newCell.setParentMaze(this);
                 col.add(newCell);
                 id++;
             }
@@ -62,45 +63,22 @@ public class Maze {
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
-                res += c.N ? "###" : "# #";
+                res += c.N ? "###" : "#.#";
             }
             res += "\n";
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
-                res += c.W ? "#" : " ";
-                res += " ";
-                res += c.E ? "#" : " ";
+                res += c.W ? "#" : ".";
+                res += ".";
+                res += c.E ? "#" : ".";
             }
             res += "\n";
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
-                res += c.S ? "###" : "# #";
+                res += c.S ? "###" : "#.#";
             }
             res += "\n";
         }
-
-        // // cells
-        // for (int y = 0; y < height; y++) {
-        //     sb.append("|");
-        //     for (int x = 0; x < width; x++) {
-        //         Cell cell = cells.get(x).get(y);
-        //         sb.append(cell.N ? "   " : "---");
-        //         sb.append("|");
-        //     }
-        //     sb.append("\n");
-        //     sb.append("+");
-        //     for (int x = 0; x < width; x++) {
-        //         Cell cell = cells.get(x).get(y);
-        //         sb.append(cell.W ? "   " : "---");
-        //         sb.append("+");
-        //     }
-        //     sb.append("\n");
-        //     for (int x = 0; x < width; x++) {
-        //         sb.append("+---");
-        //     }
-        //     sb.append("+\n");
-        // }
-
 
         return res;
     }

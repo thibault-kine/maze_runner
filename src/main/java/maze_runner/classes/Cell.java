@@ -7,6 +7,7 @@ public class Cell {
     // Walls on the North, South, East and West sides
     public boolean N, S, E, W;
     
+    private Maze parentMaze;
     public int x, y;
 
     // without identifier
@@ -27,8 +28,35 @@ public class Cell {
         this.W = w;
     }
 
+    public void setParentMaze(Maze parent) {
+        this.parentMaze = parent;
+    }
+
+    public Cell getNeighbour(String wallString) {
+        switch(wallString) {
+            case "N":
+                return parentMaze.getCell(x, y - 1);
+            
+            case "S":
+                return parentMaze.getCell(x, y + 1);
+
+            case "E":
+                return parentMaze.getCell(x + 1, y);
+
+            case "W":
+                return parentMaze.getCell(x - 1, y);
+            
+            default:
+                return null;
+        }
+    }
+
+    public String coordinates() {
+        return String.format("(x = %d ; y = %d)", x, y);
+    }
+
     public void openWall(String wall) {
-        System.out.println("Cell #" + getID() + ": " + wall);
+        // System.out.println("Cell #" + getID() + ": " + wall);
         switch (wall) {
             case "N":
                 this.N = false;
@@ -63,7 +91,7 @@ public class Cell {
             cellStr += "###\n";
         }
         else {
-            cellStr += "# #\n";
+            cellStr += "#.#\n";
         }
 
         // West wall
@@ -71,19 +99,19 @@ public class Cell {
             cellStr += "#";
         }
         else {
-            cellStr += " ";
+            cellStr += ".";
         }
 
         // Gap in the middle
         // If the id is not of the base value, put it in, else, put the gap
-        cellStr += (id != -1) ? id : " ";
+        cellStr += (id != -1) ? id : ".";
 
         // East wall
         if(E) {
             cellStr += "#\n";
         }
         else {
-            cellStr += " \n"; 
+            cellStr += ".\n"; 
         }
 
         // South wall
@@ -91,7 +119,7 @@ public class Cell {
             cellStr += "###\n";
         }
         else {
-            cellStr += "# #\n";
+            cellStr += "#.#\n";
         }
 
         return cellStr;
