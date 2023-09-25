@@ -5,7 +5,7 @@ public class Cell {
     private int id = -1;
 
     // Walls on the North, South, East and West sides
-    private boolean N, S, E, W;
+    public boolean N, S, E, W;
 
     // without identifier
     public Cell(boolean n, boolean s, boolean e, boolean w) {
@@ -30,10 +30,10 @@ public class Cell {
 
         // North wall
         if(N) {
-            cellStr += "###\n";
+            cellStr += "###";
         }
         else {
-            cellStr += "# #\n";
+            cellStr += "# #";
         }
 
         // West wall
@@ -50,15 +50,15 @@ public class Cell {
 
         // East wall
         if(E) {
-            cellStr += "#\n";
+            cellStr += "#";
         }
         else {
-            cellStr += " \n"; 
+            cellStr += " "; 
         }
 
         // South wall
         if (S) {
-            cellStr += "#";
+            cellStr += "###";
         }
         else {
             cellStr += "# #";

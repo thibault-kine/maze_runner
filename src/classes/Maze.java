@@ -3,10 +3,8 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import classes.Cell;
-
 public class Maze {
-    
+
     private int width, height;
     private List<List<Cell>> cells;
 
@@ -16,17 +14,14 @@ public class Maze {
 
         this.cells = new ArrayList<>();
 
-        // id that will define each cell
-        int _id = 0;
         // horizontal
-        for(int x = 0; x < width; x++) {
+        for (int x = 0; x < width; x++) {
             List<Cell> row = new ArrayList<>();
 
             // vertical
-            for(int y = 0; y < height; y++) {
+            for (int y = 0; y < height; y++) {
                 // creates a new cell with all walls closed
-                row.add(new Cell(_id, false, false, false, false));
-                _id++; // increments the id
+                row.add(new Cell(true, true, true, true));
             }
 
             // add the column to the row
@@ -36,14 +31,51 @@ public class Maze {
 
     public String ToString() {
 
-        String result = "";
-        for(int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
-                result += cells.get(x).get(y).ToString();
+        String res = "";
+        
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
+                Cell c = cells.get(x).get(y);
+                res += c.N ? "╔═╗" : "╔ ╗";
             }
-            result += "\n";
+            res += "\n";
+            for(int x = 0; x < width; x++) {
+                Cell c = cells.get(x).get(y);
+                res += c.W ? "║" : " ";
+                res += " ";
+                res += c.E ? "║" : " ";
+            }
+            res += "\n";
+            for(int x = 0; x < width; x++) {
+                Cell c = cells.get(x).get(y);
+                res += c.S ? "╚═╝" : "╚ ╝";
+            }
+            res += "\n";
         }
 
-        return result;
+        // // cells
+        // for (int y = 0; y < height; y++) {
+        //     sb.append("|");
+        //     for (int x = 0; x < width; x++) {
+        //         Cell cell = cells.get(x).get(y);
+        //         sb.append(cell.N ? "   " : "---");
+        //         sb.append("|");
+        //     }
+        //     sb.append("\n");
+        //     sb.append("+");
+        //     for (int x = 0; x < width; x++) {
+        //         Cell cell = cells.get(x).get(y);
+        //         sb.append(cell.W ? "   " : "---");
+        //         sb.append("+");
+        //     }
+        //     sb.append("\n");
+        //     for (int x = 0; x < width; x++) {
+        //         sb.append("+---");
+        //     }
+        //     sb.append("+\n");
+        // }
+
+
+        return res;
     }
 }
