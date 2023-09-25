@@ -1,4 +1,4 @@
-package misc;
+package maze_runner.misc;
 
 public class InvalidGenerationRequestException extends Exception {
     

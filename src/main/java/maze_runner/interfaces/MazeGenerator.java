@@ -1,6 +1,6 @@
-package interfaces;
+package maze_runner.interfaces;
 
-import classes.Maze;
+import maze_runner.classes.Maze;
 
 public interface MazeGenerator {
 

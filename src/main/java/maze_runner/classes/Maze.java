@@ -1,4 +1,4 @@
-package classes;
+package maze_runner.classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,8 @@ public class Maze {
 
         this.cells = new ArrayList<>();
 
+        int id = 0;
+
         // horizontal
         for (int x = 0; x < width; x++) {
             List<Cell> row = new ArrayList<>();
@@ -21,7 +23,8 @@ public class Maze {
             // vertical
             for (int y = 0; y < height; y++) {
                 // creates a new cell with all walls closed
-                row.add(new Cell(true, true, true, true));
+                row.add(new Cell(id, true, true, true, true));
+                id++;
             }
 
             // add the column to the row
@@ -29,26 +32,26 @@ public class Maze {
         }
     }
 
-    public String ToString() {
+    public String toString() {
 
         String res = "";
         
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(x).get(y);
-                res += c.N ? "╔═╗" : "╔ ╗";
+                res += c.N ? "###" : "# #";
             }
             res += "\n";
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(x).get(y);
-                res += c.W ? "║" : " ";
+                res += c.W ? "#" : " ";
                 res += " ";
-                res += c.E ? "║" : " ";
+                res += c.E ? "#" : " ";
             }
             res += "\n";
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(x).get(y);
-                res += c.S ? "╚═╝" : "╚ ╝";
+                res += c.S ? "###" : "# #";
             }
             res += "\n";
         }

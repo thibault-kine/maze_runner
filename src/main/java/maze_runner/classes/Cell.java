@@ -1,4 +1,4 @@
-package classes;
+package maze_runner.classes;
 
 public class Cell {
 
@@ -25,7 +25,11 @@ public class Cell {
         this.W = w;
     }
 
-    public String ToString() {
+    public int getID() {
+        return id;
+    }
+
+    public String toString() {
         String cellStr = "";
 
         // North wall

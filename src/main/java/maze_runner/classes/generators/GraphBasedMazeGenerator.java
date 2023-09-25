@@ -1,4 +1,4 @@
-package classes.generators;
+package maze_runner.classes.generators;
 
 public class GraphBasedMazeGenerator {
     

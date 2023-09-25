@@ -1,7 +1,7 @@
-package classes.generators;
+package maze_runner.classes.generators;
 
-import classes.Maze;
-import interfaces.MazeGenerator;
+import maze_runner.classes.Maze;
+import maze_runner.interfaces.MazeGenerator;
 
 public class SimpleImperfectMazeGenerator implements MazeGenerator {
 
