@@ -39,7 +39,7 @@ public class Maze {
         }
     }
 
-    /*
+    /**
      * Retourne chaque cellule dans une liste bi-dimensionelle
      */
     public List<List<Cell>> getCells() {
@@ -56,11 +56,33 @@ public class Maze {
         return cells.get(y).get(x);
     }
     
-    /*
+    /**
      * Retourne la taille du labyrinthe, soit le nombre de cellules
      */
     public int size() {
         return width * height;
+    }
+
+    public boolean isFilledWithN(int n) {
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                Cell c = getCell(x, y);
+                if(c.getID() != n) return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int numberOfN(int n) {
+        int counter = 0;
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                if(getCell(x, y).getID() == n) counter++;
+            }
+        }
+
+        return counter;
     }
 
     public String toString() {
@@ -72,6 +94,7 @@ public class Maze {
             // pour le mur du haut
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
+                // s'il y a le mur du nord, l'afficher, sinon mettre un vide
                 res += c.N ? "###" : "#.#";
             }
 
@@ -80,8 +103,10 @@ public class Maze {
             // pour le mur de gauche et de droite
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
+                // s'il y a le mur de l'ouest, l'afficher, sinon mettre un vide
                 res += c.W ? "#" : ".";
                 res += "."; // l'espace au milieu
+                // s'il y a le mur de l'est, l'afficher, sinon mettre un vide
                 res += c.E ? "#" : ".";
             }
 
@@ -90,6 +115,7 @@ public class Maze {
             // pour le mur du bas
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
+                // s'il y a le mur du sud, l'afficher, sinon mettre un vide
                 res += c.S ? "###" : "#.#";
             }
             
