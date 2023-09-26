@@ -34,8 +34,6 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
         // car cells est une liste de liste
         for (int i = 0; i < maze.size(); i++) {
 
-            // Todo: la boucle s'arrête au début de la 16è itération! 
-
             // la cellule principale !
             Cell randCell = getRandomCell(w - 1, h - 1);
             String randWall = "";
@@ -43,23 +41,19 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
             ArrayList<String> forbiddenWalls = new ArrayList<>(2);
             String[] forbiddenWallsString = new String[2];
             
-            System.out.println("test 1"); // apparaît
-            
-            // Todo: indice: le pb viendrait du bloc de code en dessous
             // pour être sûr que chaque id est unique, dès qu'on trouve un id inconnu,
             // le rentrer...
             if (!idList.contains(randCell.getID())) {
                 idList.add(randCell.getID());
             } else {
-                // ... sinon, en chercher une autre tant que l'id n'est pas encore dans la liste
+                // ... sinon, en chercher une autre tant que l'id 
+                // n'est pas encore dans la liste
                 while (idList.contains(randCell.getID())) {
-                    randCell = getRandomCell(w - 1, h - 1);
+                    randCell = getRandomCell(w, h);
                 }
                 // ensuite, l'ajouter à la liste
                 idList.add(randCell.getID());
             }
-            
-            System.out.println("test 2"); // n'apparaît pas
             
             // établit les murs que la cellule ne devrais pas ouvrir
             // selon sa position sur le labyrinthe
@@ -88,13 +82,37 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
 
             // la cellule ouvre son mur
             randCell.openWall(randWall);
-            System.out.printf("Cell #%d \t%s Wall %s\n", randCell.getID(), randCell.coordinates(), randWall);
+            System.out.printf(
+                "Cell #%d \t%s Wall %s\n", 
+                randCell.getID(), 
+                randCell.coordinates(), 
+                randWall
+            );
             // System.out.println(randWall);
             // System.out.println(randCell.coordinates());
             Cell neighbour = randCell.getNeighbour(randWall);
             if(neighbour != null) {
                 // le voisin ouvre le mur connexe
-                neighbour.openWall(randWall);
+                switch(randWall) {
+                    case "N":
+                        neighbour.openWall("S");
+                        break;
+                    
+                    case "S":
+                        neighbour.openWall("N");
+                        break;
+
+                    case "E":
+                        neighbour.openWall("W");
+                        break;
+
+                    case "W":
+                        neighbour.openWall("E");
+                        break;
+
+                    default:
+                        break;
+                }
             }
             
             System.out.printf(
