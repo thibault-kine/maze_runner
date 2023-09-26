@@ -2,15 +2,19 @@ package maze_runner.classes;
 
 public class Cell {
 
+    // -1 = id non assigné
     private int id = -1;
 
-    // Walls on the North, South, East and West sides
+    // Murs des côtés Nord, Sud, Est et Ouest
     public boolean N, S, E, W;
     
+    // Labyrinthe parent
     private Maze parentMaze;
+
+    // coordonnées relatives au labyrinthe
     public int x, y;
 
-    // without identifier
+    // sans id (déprécié)
     public Cell(boolean n, boolean s, boolean e, boolean w) {
         this.N = n;
         this.S = s;
@@ -18,9 +22,9 @@ public class Cell {
         this.W = w;
     }
 
-    // with identifier
+    // avec id (à utiliser)
     public Cell(int id, boolean n, boolean s, boolean e, boolean w) {
-        this.id = Math.abs(id); // to make sure that id is positive
+        this.id = Math.abs(id); // pour être sur que l'id est positif
         
         this.N = n;
         this.S = s;
@@ -32,6 +36,11 @@ public class Cell {
         this.parentMaze = parent;
     }
 
+    /**
+     * Retourne la cellule voisine en fonction du mur choisi
+     * (ex: de l'autre côté du mur Est, on va chercher la cellule à droite)
+     * @param wallString - le mur
+     */
     public Cell getNeighbour(String wallString) {
         switch(wallString) {
             case "N":
@@ -51,10 +60,18 @@ public class Cell {
         }
     }
 
+    /**
+     * Retournes les coordonnées telles que "(x ; y)"
+     * Sachant que (0 ; 0) = en haut à gauche et (w-1 ; h-1) = en bas à droite
+     * @return string
+     */
     public String coordinates() {
         return String.format("(x = %d ; y = %d)", x, y);
     }
 
+    /**
+     * Ouvre le mur choisi
+     */
     public void openWall(String wall) {
         // System.out.println("Cell #" + getID() + ": " + wall);
         switch (wall) {

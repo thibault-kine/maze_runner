@@ -12,21 +12,31 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
     private Maze maze;
 
     public Maze Generate(int w, int h) {
-        maze = new Maze(w, h);
+        try {
+            maze = new Maze(w, h);
+            // vérif de la taille minimale
+            if(w < MIN_WIDTH || h < MIN_HEIGHT) {
+                throw new Exception(String.format("Erreur: veuillez entrer une largeur et hauteur valides supérieurs ou égaux à %d\n", MIN_HEIGHT));
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            return null;
+        }
 
         // GENERATION //
 
-        // get all the ids in a list so we can check and eliminate
-        // the cells whose wall already have been removed
+        // cherche les id de toutes les cellules pour qu'on puisse vérifier qu'elles
+        // sont uniques
         ArrayList<Integer> idList = new ArrayList<Integer>(maze.size());
 
-        // basically a foreach, but I'd rather cycle through maze.size()
-        // instead of two foreach loops ( because of List<List<Cell>> )
+        // si je n'avais pas fait de for, j'aurais du faire 2 for-each imbriqués
+        // car cells est une liste de liste
         for (int i = 0; i < maze.size(); i++) {
 
             // Todo: la boucle s'arrête au début de la 16è itération! 
 
-            // the main cell that we are working with !
+            // la cellule principale !
             Cell randCell = getRandomCell(w - 1, h - 1);
             String randWall = "";
             
@@ -36,24 +46,23 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
             System.out.println("test 1"); // apparaît
             
             // Todo: indice: le pb viendrait du bloc de code en dessous
-            // to be sure that every cell is unique and present in the idList
-            // if the id doesn't exist in the list yet, add it
+            // pour être sûr que chaque id est unique, dès qu'on trouve un id inconnu,
+            // le rentrer...
             if (!idList.contains(randCell.getID())) {
                 idList.add(randCell.getID());
             } else {
-                // else, while the current cell's id is present, randomly find
-                // another one until its id is not present
+                // ... sinon, en chercher une autre tant que l'id n'est pas encore dans la liste
                 while (idList.contains(randCell.getID())) {
                     randCell = getRandomCell(w - 1, h - 1);
                 }
-                // then, add it to the list
+                // ensuite, l'ajouter à la liste
                 idList.add(randCell.getID());
             }
             
             System.out.println("test 2"); // n'apparaît pas
             
-            // Set walls that the cell shouldn't open
-            // according to its position on the maze
+            // établit les murs que la cellule ne devrais pas ouvrir
+            // selon sa position sur le labyrinthe
             // HORIZONTAL
             if(randCell.x == 0) forbiddenWalls.add("W");
             else if(randCell.x == w - 1) forbiddenWalls.add("E");
@@ -62,13 +71,13 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
             if(randCell.y == 0) forbiddenWalls.add("N");
             else if(randCell.y == h - 1) forbiddenWalls.add("S");
 
-            // if there are no forbidden walls, it can be any wall
+            // s'il n'y a pas de murs interdits, chercher un mur au hasard
             if(forbiddenWalls.isEmpty()) {
                 randWall = randomWall();
             }
             else {
-                // else, feed the forbidden walls into a method that will
-                // remove them from the list and assign it to randomWall
+                // sinon, donner les murs interdit à une méthode qui va retourner
+                // la liste des murs SANS les murs interdits
                 for(int j = 0; j < forbiddenWalls.size(); j++) {
                     forbiddenWallsString[j] = forbiddenWalls.get(j);
                 }
@@ -77,14 +86,14 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
             
             // System.out.println(forbiddenWalls);
 
-            // the current cell opens the wall
+            // la cellule ouvre son mur
             randCell.openWall(randWall);
             System.out.printf("Cell #%d \t%s Wall %s\n", randCell.getID(), randCell.coordinates(), randWall);
             // System.out.println(randWall);
             // System.out.println(randCell.coordinates());
             Cell neighbour = randCell.getNeighbour(randWall);
             if(neighbour != null) {
-                // the chosen neighbour opens their wall
+                // le voisin ouvre le mur connexe
                 neighbour.openWall(randWall);
             }
             
@@ -99,16 +108,16 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
     }
 
     /**
-     * Gets a random cell according to the width and height of the maze (both excluded, so it's from 0 to n-1)
-     * @param w - width of the maze
-     * @param h - height of the maze
+     * Prends une cellule au hasard entre (0, 0) et (n-1, n-1)
+     * @param w - largeur du labyrinthe
+     * @param h - hauteur du labyrinthe
      */
     private Cell getRandomCell(int w, int h) {
         return maze.getCell(random.nextInt(w), random.nextInt(h));
     }
 
     /**
-     * Gets a random wall according to the constant 'coordStrings' in the interface
+     * Prends un mur au hasard selon la const "coordStrings" dans l'interface MazeGenerator
      */
     private String randomWall() {
         int index = random.nextInt(coordStrings.length - 1);
@@ -124,8 +133,8 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
     }
 
     /**
-     * Returns a modified array of the "coordStrings" minus the exceptions
-     * @param exceptions - the walls you don't want suggested to your cell
+     * Retourne une liste de murs dans laquelle on a retiré les murs interdits
+     * @param exceptions - les murs que tu ne veux pas que ta cellule ouvre
      */
     private String randomWallExcept(String[] exceptions) {
         ArrayList<String> validDirections = new ArrayList<>(Arrays.asList(coordStrings));

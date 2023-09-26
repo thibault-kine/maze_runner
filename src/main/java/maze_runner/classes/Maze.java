@@ -14,6 +14,7 @@ public class Maze {
 
         this.cells = new ArrayList<>();
 
+        // id de chaque cellule
         int id = 0;
 
         // vertical
@@ -22,36 +23,42 @@ public class Maze {
 
             // horizontal
             for (int x = 0; x < width; x++) {
-                // creates a new cell with all walls closed
+                // créé une nouvelle cellule avec tous les murs fermés
                 Cell newCell = new Cell(id, true, true, true, true);
+                // assigne les coordonnées
                 newCell.x = x;
                 newCell.y = y;
+                // assigne le labyrinthe parent de cette cellule
                 newCell.setParentMaze(this);
+                // ajoute la cellule à la colonne
                 col.add(newCell);
                 id++;
             }
-            // add the column to the row
+            // ajoute la colonne à la ligne
             cells.add(col);
         }
     }
 
     /*
-     * Returns every cell in a bi-dimensional list
+     * Retourne chaque cellule dans une liste bi-dimensionelle
      */
     public List<List<Cell>> getCells() {
         return cells;
     }
 
     /**
-     * Returns a single cell
-     * @param x - the horizontal coordinate
-     * @param y - the vertical coordinate
-     * @return the cell
+     * Retourne une seule cellule
+     * @param x - coordonnée horizontale
+     * @param y - coordonnée verticale
+     * @return la cellule
      */
     public Cell getCell(int x, int y) {
         return cells.get(y).get(x);
     }
     
+    /*
+     * Retourne la taille du labyrinthe, soit le nombre de cellules
+     */
     public int size() {
         return width * height;
     }
@@ -60,23 +67,32 @@ public class Maze {
 
         String res = "";
         
+        // pour chaque cellule
         for(int y = 0; y < height; y++) {
+            // pour le mur du haut
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
                 res += c.N ? "###" : "#.#";
             }
+
             res += "\n";
+
+            // pour le mur de gauche et de droite
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
                 res += c.W ? "#" : ".";
-                res += ".";
+                res += "."; // l'espace au milieu
                 res += c.E ? "#" : ".";
             }
+
             res += "\n";
+
+            // pour le mur du bas
             for(int x = 0; x < width; x++) {
                 Cell c = cells.get(y).get(x);
                 res += c.S ? "###" : "#.#";
             }
+            
             res += "\n";
         }
 
