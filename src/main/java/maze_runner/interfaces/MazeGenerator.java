@@ -9,7 +9,7 @@ public interface MazeGenerator {
     final int MIN_WIDTH = 5;
     final int MIN_HEIGHT = 5;
 
-    final String[] coordStrings = { "N", "S", "E", "W" };
+    final String[] coordStrings = { "N", "E", "S", "W" };
 
     final Random random = new Random();
 

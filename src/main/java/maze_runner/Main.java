@@ -6,7 +6,7 @@ import maze_runner.classes.generators.*;
 public class Main {
     public static void main(String[] args) {
 
-        Maze maze = new SimplePerfectMazeGenerator().Generate(5, 5);
+        Maze maze = new SimplePerfectMazeGenerator().Generate(10, 5);
 
         System.out.println(maze.toString());
     }

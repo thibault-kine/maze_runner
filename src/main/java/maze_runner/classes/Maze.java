@@ -85,8 +85,37 @@ public class Maze {
         return counter;
     }
 
+    public Cell getCellByID(int id) {
+        Cell c = null;
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                c = getCell(x, y);
+                if(c.getID() == id) return c;
+            }
+        }
+        
+        return null;
+    }
+
+    public ArrayList<Cell> getCellsByID(int id) {
+        ArrayList<Cell> cells = new ArrayList<>();
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                Cell c = getCell(x, y);
+                if(c.getID() == id) cells.add(c);;
+            }
+        }
+
+        return cells;
+    }
+
     public String toString() {
 
+        String[] identifiers = {
+            // "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+        };
         String res = "";
         
         // pour chaque cellule
@@ -106,6 +135,7 @@ public class Maze {
                 // s'il y a le mur de l'ouest, l'afficher, sinon mettre un vide
                 res += c.W ? "#" : ".";
                 res += "."; // l'espace au milieu
+                // res += " " + identifiers[c.getID()] + " ";
                 // s'il y a le mur de l'est, l'afficher, sinon mettre un vide
                 res += c.E ? "#" : ".";
             }

@@ -41,19 +41,19 @@ public class Cell {
      * (ex: de l'autre côté du mur Est, on va chercher la cellule à droite)
      * @param wallString - le mur
      */
-    public Cell getNeighbour(String wallString) {
+    public Cell getNeighbour(String wallString, int w, int h) {
         switch(wallString) {
             case "N":
-                return parentMaze.getCell(x, y - 1);
+                if(y - 1 >= 0) return parentMaze.getCell(x, y - 1);
             
             case "S":
-                return parentMaze.getCell(x, y + 1);
+                if(y + 1 < h) return parentMaze.getCell(x, y + 1);
 
             case "E":
-                return parentMaze.getCell(x + 1, y);
+                if(x + 1 < w) return parentMaze.getCell(x + 1, y);
 
             case "W":
-                return parentMaze.getCell(x - 1, y);
+                if(x - 1 >= 0) return parentMaze.getCell(x - 1, y);
             
             default:
                 return null;
@@ -93,6 +93,21 @@ public class Cell {
 
             default:
                 break;
+        }
+    }
+
+    public boolean isWallOpen(String wall) {
+        switch(wall) {
+            case "N":
+                return !N;
+            case "S":
+                return !S;
+            case "E":
+                return !E;
+            case "W":
+                return !W;
+            default:
+                return false;
         }
     }
 
