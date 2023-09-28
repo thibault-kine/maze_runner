@@ -2,6 +2,7 @@ package maze_runner.classes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Maze {
 
@@ -36,6 +37,43 @@ public class Maze {
             }
             // ajoute la colonne à la ligne
             cells.add(col);
+        }
+
+        setStart();
+        setExit();
+    }
+
+    private void setStart() {
+        List<Cell> cellsX = cells.get(0);
+        List<Cell> cellsY = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            cellsY.add(cells.get(i).get(0));
+        }
+        
+        Random rand = new Random();
+        int randInt = rand.nextInt(width);
+        if(rand.nextBoolean()) {
+            cellsX.get(randInt).openWall("N");
+        }
+        else {
+            cellsY.get(randInt).openWall("W");
+        }
+    }
+
+    private void setExit() {
+        List<Cell> cellsX = cells.get(height - 1);
+        List<Cell> cellsY = new ArrayList<>();
+        for(int i = 0; i < height; i++) {
+            cellsY.add(cellsX.get(width - 1));
+        }
+
+        Random rand = new Random();
+        int randInt = rand.nextInt(width);
+        if(rand.nextBoolean()) {
+            cellsX.get(randInt).openWall("S");
+        }
+        else {
+            cellsY.get(randInt).openWall("E");
         }
     }
 

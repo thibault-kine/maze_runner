@@ -120,44 +120,11 @@ public class Cell {
     }
 
     public String toString() {
-        String cellStr = "";
-
-        // North wall
-        if(N) {
-            cellStr += "###\n";
-        }
-        else {
-            cellStr += "#.#\n";
-        }
-
-        // West wall
-        if(W) {
-            cellStr += "#";
-        }
-        else {
-            cellStr += ".";
-        }
-
-        // Gap in the middle
-        // If the id is not of the base value, put it in, else, put the gap
-        cellStr += (id != -1) ? id : ".";
-
-        // East wall
-        if(E) {
-            cellStr += "#\n";
-        }
-        else {
-            cellStr += ".\n"; 
-        }
-
-        // South wall
-        if (S) {
-            cellStr += "###\n";
-        }
-        else {
-            cellStr += "#.#\n";
-        }
-
-        return cellStr;
+        return String.format(
+            "Cell #%d:\n \t%s\n \tN: %s, S: %s, E: %s, W: %s\n",
+            id,
+            coordinates(),
+            N, S, E, W
+        );
     }
 }
