@@ -27,8 +27,7 @@ public class Maze {
                 // créé une nouvelle cellule avec tous les murs fermés
                 Cell newCell = new Cell(id, true, true, true, true);
                 // assigne les coordonnées
-                newCell.x = x;
-                newCell.y = y;
+                newCell.position = new Tuple(x, y);
                 // assigne le labyrinthe parent de cette cellule
                 newCell.setParentMaze(this);
                 // ajoute la cellule à la colonne
@@ -39,6 +38,7 @@ public class Maze {
             cells.add(col);
         }
 
+        // ! NE PAS OUBLIER DE DECOMMENTER !
         setStart();
         setExit();
     }
@@ -93,7 +93,22 @@ public class Maze {
     public Cell getCell(int x, int y) {
         return cells.get(y).get(x);
     }
-    
+
+    public Cell getCell(Tuple pos) {
+        return cells.get(pos.y).get(pos.x);
+    }
+
+    /**
+     * Prends une cellule au hasard entre (0, 0) et (n-1, n-1)
+     * 
+     * @param w - largeur du labyrinthe
+     * @param h - hauteur du labyrinthe
+     */
+    public Cell getRandomCell(int w, int h) {
+        Random random = new Random();
+        return getCell(random.nextInt(w), random.nextInt(h));
+    }
+
     /**
      * Retourne la taille du labyrinthe, soit le nombre de cellules
      */
@@ -173,7 +188,8 @@ public class Maze {
                 // s'il y a le mur de l'ouest, l'afficher, sinon mettre un vide
                 res += c.W ? "#" : ".";
                 res += "."; // l'espace au milieu
-                // res += " " + identifiers[c.getID()] + " ";
+                // res += c.getID();
+                // res += identifiers[c.getID()]; // ! debug only !
                 // s'il y a le mur de l'est, l'afficher, sinon mettre un vide
                 res += c.E ? "#" : ".";
             }

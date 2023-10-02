@@ -1,7 +1,9 @@
 package maze_runner.interfaces;
 
 import java.util.Random;
+import java.util.ArrayList;
 
+import maze_runner.classes.Cell;
 import maze_runner.classes.Maze;
 
 public interface MazeGenerator {

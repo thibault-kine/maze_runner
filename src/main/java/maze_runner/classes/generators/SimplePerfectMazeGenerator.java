@@ -6,21 +6,21 @@ import java.util.Arrays;
 import maze_runner.classes.Cell;
 import maze_runner.classes.Maze;
 import maze_runner.interfaces.MazeGenerator;
+import maze_runner.misc.MazeSizeException;
 
 public class SimplePerfectMazeGenerator implements MazeGenerator {
 
     private Maze maze;
 
+    @Override
     public Maze Generate(int w, int h) {
         try {
             maze = new Maze(w, h);
             // vérif de la taille minimale
             if (w < MIN_WIDTH || h < MIN_HEIGHT) {
-                throw new Exception(String.format(
-                        "Erreur: veuillez entrer une largeur et hauteur valides supérieurs ou égaux à %d\n",
-                        MIN_HEIGHT));
+                throw new MazeSizeException();
             }
-        } catch (Exception e) {
+        } catch (MazeSizeException e) {
             System.out.println(e);
             return null;
         }
@@ -40,7 +40,7 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
             String randWall = "";
             Cell neighbour;
 
-            randCell = getRandomCell(w - 1, h - 1);
+            randCell = maze.getRandomCell(w - 1, h - 1);
 
             ArrayList<String> forbiddenWalls = new ArrayList<>(2);
             String[] forbiddenWallsString = new String[2];
@@ -54,7 +54,7 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
                     // ... sinon, en chercher une autre tant que l'id
                     // n'est pas encore dans la liste
                     while (idList.contains(randCell.getID())) {
-                        randCell = getRandomCell(w, h);
+                        randCell = maze.getRandomCell(w, h);
                     }
                     // ensuite, l'ajouter à la liste
                     idList.add(randCell.getID());
@@ -89,13 +89,13 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
                 // System.out.printf(" \trandWall: %s\n", randWall);
                 // System.out.printf(" \tneighbour at %s\n", neighbour.coordinates());
                 
-                randCell = getRandomCell(w, h);
+                randCell = maze.getRandomCell(w, h);
                 forbiddenWalls = checkForbiddenWalls(randCell, w, h);
                 for (int j = 0; j < forbiddenWalls.size(); j++) {
                     forbiddenWallsString[j] = forbiddenWalls.get(j);
                 }
-                randWall = randomWallExcept(forbiddenWallsString); // ! or here
-                neighbour = randCell.getNeighbour(randWall, w, h); // ! here
+                randWall = randomWallExcept(forbiddenWallsString);
+                neighbour = randCell.getNeighbour(randWall, w, h);
                 
                 // System.out.println("New:");
                 // System.out.printf(" \trandCell at %s\n", randCell.coordinates());
@@ -154,30 +154,21 @@ public class SimplePerfectMazeGenerator implements MazeGenerator {
         return maze;
     }
 
-    /**
-     * Prends une cellule au hasard entre (0, 0) et (n-1, n-1)
-     * 
-     * @param w - largeur du labyrinthe
-     * @param h - hauteur du labyrinthe
-     */
-    private Cell getRandomCell(int w, int h) {
-        return maze.getCell(random.nextInt(w), random.nextInt(h));
-    }
-
+    
     private ArrayList<String> checkForbiddenWalls(Cell cell, int w, int h) {
         ArrayList<String> forbiddenWalls = new ArrayList<>();
         // établit les murs que la cellule ne devrais pas ouvrir
         // selon sa position sur le labyrinthe
         // HORIZONTAL
-        if (cell.x == 0)
+        if (cell.position.x == 0)
             forbiddenWalls.add("W");
-        if (cell.x == w - 1)
+        if (cell.position.x == w - 1)
             forbiddenWalls.add("E");
 
         // VERTICAL
-        if (cell.y == 0)
+        if (cell.position.y == 0)
             forbiddenWalls.add("N");
-        if (cell.y == h - 1)
+        if (cell.position.y == h - 1)
             forbiddenWalls.add("S");
 
         return forbiddenWalls;

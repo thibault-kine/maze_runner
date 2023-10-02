@@ -12,7 +12,10 @@ public class Cell {
     private Maze parentMaze;
 
     // coordonnées relatives au labyrinthe
-    public int x, y;
+    public Tuple position;
+
+    // dans le cadre d'un algorithme de prim
+    public boolean visited = false;
 
     // sans id (déprécié)
     public Cell(boolean n, boolean s, boolean e, boolean w) {
@@ -44,16 +47,16 @@ public class Cell {
     public Cell getNeighbour(String wallString, int w, int h) {
         switch(wallString) {
             case "N":
-                if(y - 1 >= 0) return parentMaze.getCell(x, y - 1);
+                if(position.y - 1 >= 0) return parentMaze.getCell(position.x, position.y - 1);
             
             case "S":
-                if(y + 1 < h) return parentMaze.getCell(x, y + 1);
+                if(position.y + 1 < h) return parentMaze.getCell(position.x, position.y + 1);
 
             case "E":
-                if(x + 1 < w) return parentMaze.getCell(x + 1, y);
+                if(position.x + 1 < w) return parentMaze.getCell(position.x + 1, position.y);
 
             case "W":
-                if(x - 1 >= 0) return parentMaze.getCell(x - 1, y);
+                if(position.x - 1 >= 0) return parentMaze.getCell(position.x - 1, position.y);
             
             default:
                 return null;
@@ -66,7 +69,7 @@ public class Cell {
      * @return string
      */
     public String coordinates() {
-        return String.format("(x = %d ; y = %d)", x, y);
+        return String.format("(x = %d ; y = %d)", position.x, position.y);
     }
 
     /**
