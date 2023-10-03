@@ -1,0 +1,15 @@
+Important ! Avoir installé Maven au préalable
+
+1. Dans pom.xml, mettre ceci:
+
+<build>
+    <finalName>
+        MazeRunner
+    </finalName>
+</build>
+
+2. mvn package
+
+3. cd target
+
+4. java -jar MazeGenerator [largeur] [hauteur] [perfect/imperfect] [simple/graph/optimized]
