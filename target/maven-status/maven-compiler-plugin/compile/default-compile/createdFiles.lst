@@ -1,9 +1,9 @@
 maze_runner\classes\generators\SimpleImperfectMazeGenerator.class
-maze_runner\misc\InvalidGenerationRequestException.class
 maze_runner\classes\Cell.class
+maze_runner\interfaces\MazeGenerator.class
+maze_runner\misc\InvalidGenerationRequestException.class
 maze_runner\Main.class
 maze_runner\classes\generators\SimplePerfectMazeGenerator.class
 maze_runner\classes\generators\OptimizedMazeGenerator.class
 maze_runner\classes\Maze.class
 maze_runner\classes\generators\GraphBasedMazeGenerator.class
-maze_runner\interfaces\MazeGenerator.class

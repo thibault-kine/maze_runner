@@ -1,10 +1,13 @@
 C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\generators\SimpleImperfectMazeGenerator.java
 C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\interfaces\MazeGenerator.java
-C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\generators\GraphBasedMazeGenerator.java
 C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\Tuple.java
 C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\Cell.java
+C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\misc\MazeGenerationException.java
+C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\misc\InvalidGenerationTypeException.java
+C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\misc\MazeSizeException.java
+C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\generators\OptimizedMazeGenerator.java
+C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\Main.java
+C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\generators\GraphBasedMazeGenerator.java
 C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\Maze.java
 C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\misc\InvalidGenerationRequestException.java
 C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\generators\SimplePerfectMazeGenerator.java
-C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\classes\generators\OptimizedMazeGenerator.java
-C:\Users\chezt\OneDrive\Documents\Java Projects\maze_runner\src\main\java\maze_runner\Main.java
